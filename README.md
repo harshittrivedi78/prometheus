@@ -17,13 +17,13 @@ function , a code segment.
 Install with:
 
 ```shell
-pip install prometheus
+pip install prometheus-python
 ```
 
 Or, if you're using a development version cloned from this repository:
 
 ```shell
-git clone <repo-url>
+git clone https://github.com/harshittrivedi78/prometheus.git
 python prometheus/setup.py install
 ```
 This will install Django >= 1.8 and djangorestframework >= 3.0 and [prometheus_client](https://github.com/prometheus/client_python) as a dependency if not installed already.
