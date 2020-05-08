@@ -71,3 +71,19 @@ how much time this function is taking to execute, how many requests are in progr
 how many request totally served till now.
 
 
+### Configuration
+Prometheus uses Histogram based grouping for monitoring latencies. The default
+buckets are here: https://github.com/prometheus/client_python/blob/master/prometheus_client/core.py
+
+You can define custom buckets for latency, adding more buckets decreases performance but
+increases accuracy: https://prometheus.io/docs/practices/histograms/
+
+```
+PROMETHEUS_LATENCY_BUCKETS = (.1, .2, .5, .6, .8, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
+```
+
+### Monitor in multiprocess mode (uWSGI, Gunicorn)
+```
+PROMETHEUS_MULTIPROC_MODE = True # default is False
+PROMETHEUS_MULTIPROC_DIR = /path/to/prometheus_multiproc_dir # default it will save db files in prometheus/multiproc_dir/
+```
