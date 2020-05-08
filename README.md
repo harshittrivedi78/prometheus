@@ -26,9 +26,7 @@ Or, if you're using a development version cloned from this repository:
 git clone <repo-url>
 python prometheus/setup.py install
 ```
-
-This will install [prometheus_client](https://github.com/prometheus/client_python) as a dependency.
-
+This will install Django >= 1.8 and djangorestframework >= 3.0 and [prometheus_client](https://github.com/prometheus/client_python) as a dependency if not installed already.
 ### Quickstart
 
 In your settings.py:
@@ -59,7 +57,7 @@ from prometheus import monitor
 
 class TestAPIView(generics.RetrieveAPIView):
     
-    @monitor(app_name="test")
+    @monitor(app_name="test") # app_name should be unique through out the application.
     def retrieve(self, request, *args, **kwargs):
         data = {}
         return Response(data, status=status.HTTP_200_OK)
@@ -70,6 +68,13 @@ decorator which will provide monitoring metrics for this function only. And you 
 how much time this function is taking to execute, how many requests are in progress currently, 
 how many request totally served till now.
 
+# Default list of monitored metrics 
+```
+* request_count
+* request_latency
+* request_in_progress
+* response_by_status_total
+```
 
 ### Configuration
 Prometheus uses Histogram based grouping for monitoring latencies. The default

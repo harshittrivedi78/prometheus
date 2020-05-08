@@ -17,8 +17,6 @@ def load_requirements(fname):
     return install_requires
 
 
-print(load_requirements)
-
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
@@ -42,16 +40,16 @@ setup(
     # packages=packages,  # packages names which is to be installed.
 
     description='Prometheus client wrapper for django or django rest framework based applications.',
-    long_description=readme,  # put the description after reading from README.txt file.
     long_description_content_type='text/markdown',
+    long_description=readme,  # put the description after reading from README.txt file.
 
-    license=LICENSE,
+    # license=LICENSE,
     keywords="prometheus monitoring django django-rest-framework drf client",
-
+    # include_package_data=True,
     options={"bdist_wheel": {"universal": "1"}},
     install_requires=load_requirements("requirements.txt"),
 
-    classifiers=(
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
@@ -64,6 +62,6 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         'Natural Language :: English',
-    ),
+    ],
     python_requires='>=2.7',
 )
