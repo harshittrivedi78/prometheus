@@ -1,7 +1,5 @@
-from django.conf import settings
-
 from prometheus_client import Counter, Histogram, Gauge
-from prometheus.utils import *
+from prometheus import settings
 
 
 class Metrics:
@@ -27,7 +25,7 @@ class Metrics:
         app['REQUEST_LATENCY'] = Histogram(
             app_name + 'request_latency_seconds', 'Request latency',
             buckets=getattr(
-                settings, "PROMETHEUS_LATENCY_BUCKETS", DEFAULT_LATENCY_BUCKETS
+                settings, "PROMETHEUS_LATENCY_BUCKETS"
             ),
         )
         app['REQUEST_IN_PROGRESS'] = Gauge(

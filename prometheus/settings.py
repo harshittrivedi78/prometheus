@@ -1,11 +1,37 @@
 import os
 from django.conf import settings
 
-# Prometheus Settings
+settings.configure()
 
-PROMETHEUS_MULTIPROC_MODE = getattr(settings, "PROMETHEUS_MULTIPROC_MODE", True)
+# Prometheus Settings
+DEFAULT_LATENCY_BUCKETS = (
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    2.5,
+    5.0,
+    7.5,
+    10.0,
+    25.0,
+    50.0,
+    75.0,
+    float("inf"),
+)
+
+BASE_DIR = getattr(settings, "BASE_DIR",
+                   os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+PROMETHEUS_MULTIPROC_MODE = getattr(settings, "PROMETHEUS_MULTIPROC_MODE", False)
 PROMETHEUS_MULTIPROC_DIR = getattr(settings, "PROMETHEUS_MULTIPROC_DIR",
-                                   settings.BASE_DIR + '/prometheus/multiproc_dir')
+                                   BASE_DIR + '/prometheus/multiproc_dir')
+
+PROMETHEUS_LATENCY_BUCKETS = getattr(settings, "PROMETHEUS_LATENCY_BUCKETS", DEFAULT_LATENCY_BUCKETS)
 
 
 def setup():

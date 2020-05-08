@@ -1,4 +1,5 @@
-from prometheus.metrics import Metrics, Time, TimeSince
+from prometheus.metrics import Metrics
+from prometheus.utils import Time, TimeSince
 
 
 class Monitor:
