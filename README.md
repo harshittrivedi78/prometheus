@@ -68,6 +68,11 @@ decorator which will provide monitoring metrics for this function only. And you 
 how much time this function is taking to execute, how many requests are in progress currently, 
 how many request totally served till now.
 
+Metrics are exposed to:
+```
+http://localhost:8000/metrics
+```
+
 # Default list of monitored metrics 
 ```
 * request_count
