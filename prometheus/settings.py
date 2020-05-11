@@ -1,7 +1,8 @@
 import os
 from django.conf import settings
 
-settings.configure()
+if not settings.configured:
+    settings.configure()
 
 # Prometheus Settings
 DEFAULT_LATENCY_BUCKETS = (
