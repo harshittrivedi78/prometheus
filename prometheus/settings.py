@@ -34,6 +34,13 @@ PROMETHEUS_MULTIPROC_DIR = getattr(settings, "PROMETHEUS_MULTIPROC_DIR",
 
 PROMETHEUS_LATENCY_BUCKETS = getattr(settings, "PROMETHEUS_LATENCY_BUCKETS", DEFAULT_LATENCY_BUCKETS)
 
+# For pushing batch job metrics to the client where it has
+# exposed the metrics api.
+# PrometheusServer  ---scrapes_from--> PrometheusClient(RunningWithDjango) <----push_metrics--- BatchJob
+PROTOCOL = "HTTP"  # HTTPS
+PROMETHEUS_METRICS_HOST = "127.0.0.1"
+PROMETHEUS_METRICS_PORT = "8000"
+
 
 def setup():
     print("Setting up prometheus")

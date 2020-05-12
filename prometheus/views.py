@@ -3,15 +3,15 @@ import prometheus_client
 from prometheus_client import multiprocess
 from django.http import HttpResponse
 from rest_framework import generics
+from rest_framework.response import Response
+
+from prometheus.metrics import batch_metrics
 
 
 class PrometheusMetricsView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         if "prometheus_multiproc_dir" in os.environ:
-            # prometheus_client.values.ValueClass = prometheus_client.values.MultiProcessValue(
-            #     os.getpid  # in case of uwsgi mode: uwsgi.worker_id
-            # )
             registry = prometheus_client.CollectorRegistry(auto_describe=True)
             multiprocess.MultiProcessCollector(registry)
         else:
@@ -20,3 +20,10 @@ class PrometheusMetricsView(generics.RetrieveAPIView):
         return HttpResponse(
             metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST
         )
+
+
+class PrometheusMetricsPushView(generics.CreateAPIView):
+
+    def create(self, request, *args, **kwargs):
+        batch_metrics.push_metrics(request.data)
+        return Response({})
