@@ -99,3 +99,13 @@ In your settings.py
 PROMETHEUS_MULTIPROC_MODE = True # default is False
 PROMETHEUS_MULTIPROC_DIR = /path/to/prometheus_multiproc_dir # default it will save db files in prometheus/multiproc_dir/
 ```
+
+### Monitor Batch Jobs
+Legacy Flow with pushgateway:
+```mermaid
+graph LR
+
+A -> B;
+B -> C;
+C -> A;
+```
