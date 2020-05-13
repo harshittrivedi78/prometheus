@@ -1,5 +1,4 @@
 import requests
-from prometheus_client import CollectorRegistry
 from prometheus.metrics import Metrics, BatchMetrics
 from prometheus.utils import Time, TimeSince
 from prometheus import settings
@@ -81,7 +80,7 @@ class BatchMonitor(Monitor):
     def push_metrics(self):
         print("pushing metrics")
         base_url = "%s://%s:%s" % (
-            settings.PROTOCOL, settings.PROMETHEUS_METRICS_HOST, settings.PROMETHEUS_METRICS_PORT)
+            settings.PROMETHEUS_METRICS_PROTOCOL, settings.PROMETHEUS_METRICS_HOST, settings.PROMETHEUS_METRICS_PORT)
         base_url += self.push_metrics_url
         data = self._collect_metrics()
         response = requests.post(base_url, data=data)

@@ -37,10 +37,10 @@ PROMETHEUS_LATENCY_BUCKETS = getattr(settings, "PROMETHEUS_LATENCY_BUCKETS", DEF
 # For pushing batch job metrics to the client where it has
 # exposed the metrics api.
 # PrometheusServer  ---scrapes_from--> PrometheusClient(RunningWithDjango) <----push_metrics--- BatchJob
-PROTOCOL = "HTTP"  # HTTPS
-PROMETHEUS_METRICS_HOST = "127.0.0.1"
-PROMETHEUS_METRICS_PORT = "8000"
-PROMETHEUS_PUSH_METRICS_URL = "/push/metrics"
+PROMETHEUS_METRICS_PROTOCOL = getattr(settings, "PROMETHEUS_METRICS_PROTOCOL", "HTTP")  # HTTPS
+PROMETHEUS_METRICS_HOST = getattr(settings, "PROMETHEUS_METRICS_HOST", "127.0.0.1")
+PROMETHEUS_METRICS_PORT = getattr(settings, "PROMETHEUS_METRICS_PORT", "8000")
+PROMETHEUS_PUSH_METRICS_URL = getattr(settings, "PROMETHEUS_PUSH_METRICS_URL", "/push/metrics")
 
 
 def setup():
