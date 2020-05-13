@@ -61,6 +61,9 @@ class BatchMetrics:
         if app:
             return app
         app_name += "_"
+        app['REQUEST_COUNT'] = Counter(
+            app_name + 'requests_total', 'Total Request Count',
+        )
         app["TIME_TAKEN"] = Gauge(
             app_name + 'time_taken_seconds', 'Time Taken By the Job in seconds',
         )
@@ -77,6 +80,7 @@ class BatchMetrics:
 
     def push_metrics(self, data):
         app = self.setup_metrics(data["APP_NAME"])
+        app["REQUEST_COUNT"].inc(float(data["REQUEST_COUNT"]))
         app["TIME_TAKEN"].set(data["TIME_TAKEN"])
         app["LAST_SUCCESS"].set(data["LAST_SUCCESS"])
         app["LAST_FAILURE"].set(data["LAST_FAILURE"])
