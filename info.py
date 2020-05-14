@@ -1,5 +1,5 @@
 __name__ = "prometheus-python"
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __author__ = "Harshit"
 __author_email__ = "harshittrivedi78@gmail.com"
 __url__ = "https://github.com/harshittrivedi78/prometheus"
