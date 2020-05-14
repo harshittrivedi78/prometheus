@@ -73,7 +73,7 @@ Metrics are exposed to:
 http://localhost:8000/metrics
 ```
 
-# Default list of monitored metrics 
+### Default list of monitored metrics 
 ```
 * request_count
 * request_latency
@@ -99,3 +99,35 @@ In your settings.py
 PROMETHEUS_MULTIPROC_MODE = True # default is False
 PROMETHEUS_MULTIPROC_DIR = /path/to/prometheus_multiproc_dir # default it will save db files in prometheus/multiproc_dir/
 ```
+### Monitoring of Batch Jobs
+So in prometheus legacy system we have to collect the metrics and push those metrics to the pushgateway and then prometheus server has to scrape those metrics from push gateway. But now I have modified this apporach. Now I have exposed an endpoint in this prometheus client to push your metrics.
+
+So as usual you must be running prometheus client with server (Django, Django Rest Framework).
+
+In settings.py: these settings is actually where your server is running.
+```python
+PROMETHEUS_METRICS_PROTOCOL = "HTTP" # or HTTPS
+PROMETHEUS_METRICS_HOST = "127.0.0.1"
+PROMETHEUS_METRICS_PORT = "8000"
+PROMETHEUS_PUSH_METRICS_URL = "/push/metrics"
+```
+In your any batch_job.py
+```python
+from prometheus import batch_monitor
+
+@batch_monitor(app_name="sum")
+def sum(a,b):
+   return a+b
+   
+sum(10, 20)
+```
+So here this batch_monitor decorator will push the metrics to you server and add monitored metrics into your server's metrics.
+
+### Default Batch Job Monitored Metrics
+```
+* request_count
+* time_takne
+* last_success
+* Last_failure
+```
+These metrics can be seen at `/metrics` endpoint.
