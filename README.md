@@ -126,7 +126,7 @@ So here this batch_monitor decorator will push the metrics to you server and add
 ### Default Batch Job Monitored Metrics
 ```
 * request_count
-* time_takne
+* time_taken
 * last_success
 * Last_failure
 ```
